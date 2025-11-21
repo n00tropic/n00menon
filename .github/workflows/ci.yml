@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version:
+          - 18
+          - 20
+          - 22
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: "Setup Node.js ${{ matrix.node-version }}"
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: pnpm
+
+      - name: Install dependencies
+        run: corepack enable && corepack prepare pnpm@latest --activate && pnpm install --frozen-lockfile
+
+      - name: Type check
+        run: pnpm run typecheck
+
+      - name: Lint
+        run: pnpm run lint
+
+      - name: Format check
+        run: pnpm run format:check
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Test with coverage
+        run: pnpm test
+
+      - name: Upload coverage
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && secrets.CODECOV_TOKEN != '' }}
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: false
