@@ -1,25 +1,39 @@
 # n00menon Docs
 
-A tiny Node/TypeScript demo service exposing two APIs:
+Tiny Node/TypeScript demo service that exposes two trivial APIs and acts as a canary for the wider workspace tooling.
 
-- `ping(): string` → "pong"
-- `greet(name: string): string` → "Hello, <name>!"
-
-## Getting Started
+## Quick start
 
 ```bash
 pnpm install
 pnpm test
 pnpm build
+pnpm run docs:build
 node dist/index.js
 ```
 
-## API Reference
+## API surface
 
-- Hand-authored summary: [api.md](./api.md)
-- Generated Typedoc: open `docs/api/index.html` after running `pnpm run docs:build`.
+- `ping(): string` → returns `"pong"`; use as a health probe.
+- `greet(name: string): string` → returns `"Hello, <name>!"`.
+
+## Repository map
+
+- `src/index.ts` — runtime exports and the tiny CLI entrypoint.
+- `tests/` — Vitest smoke coverage; keep the threshold at ≥80%.
+- `docs/` — canonical Markdown docs plus generated Typedoc HTML under `docs/api/`.
+- `modules/ROOT/pages/index.adoc` — Antora page (synced automatically; do not hand-edit).
+- `package.json` — scripts for build, tests, docs sync, and validation.
+
+## Docs + automation
+
+- Edit `docs/index.md` as the single source of truth for n00menon docs.
+- Run `pnpm -C n00menon run docs:sync` to refresh `README.md` and the Antora page.
+- Regenerate API HTML with `pnpm -C n00menon run docs:build`.
+- CI uses `pnpm -C n00menon run validate` to guard drift and make sure the docs build stays green.
 
 ## Contributing
-- Keep exports in `src/index.ts` minimal and documented with TSDoc comments.
-- Add tests in `tests/` and keep coverage ≥80% (Vitest threshold enforced).
-- Run `pnpm run docs:build` to refresh API docs before tagging.
+
+- Keep exports in `src/index.ts` documented with TSDoc comments.
+- Add tests in `tests/` for new behaviour; hold coverage at 80% or higher.
+- Use pnpm 10.23.0 and Node 24.11+; run `pnpm test` and `pnpm run validate` before raising a PR.

@@ -15,9 +15,13 @@
     "build": "tsc -p tsconfig.json",
     "test": "vitest run",
     "lint": "echo 'No lint configured'",
+    "lint:spell": "pnpm exec cspell --config ../cspell.json 'docs/**/*' 'modules/ROOT/pages/**/*.adoc' || true",
     "docs:build": "typedoc --options typedoc.json",
     "docs:clean": "rm -rf docs/api",
-    "docs": "pnpm run docs:build"
+    "docs": "pnpm run docs:build",
+    "docs:sync": "node ../scripts/sync-n00menon-docs.mjs --write",
+    "docs:sync:check": "node ../scripts/sync-n00menon-docs.mjs --check",
+    "validate": "pnpm run docs:sync:check && pnpm run test && pnpm run docs:build"
   },
   "engines": {
     "node": ">=24.11.0"
