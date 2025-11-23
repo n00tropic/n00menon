@@ -11,6 +11,10 @@ pnpm build
 node dist/index.js
 ```
 
+## Docs
+- Handwritten: `docs/index.md`, `docs/api.md`
+- Generated API docs: run `pnpm run docs:build` then open `docs/api/index.html`
+
 ## What lives here
 - `src/index.ts` — runtime exports and a tiny CLI entry.
 - `tests/` — Vitest smoke coverage for ping/greet.

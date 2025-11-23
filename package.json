@@ -14,7 +14,10 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "test": "vitest run",
-    "lint": "echo 'No lint configured'"
+    "lint": "echo 'No lint configured'",
+    "docs:build": "typedoc --options typedoc.json",
+    "docs:clean": "rm -rf docs/api",
+    "docs": "pnpm run docs:build"
   },
   "engines": {
     "node": ">=24.11.0"
@@ -26,6 +29,7 @@
   "devDependencies": {
     "@tsconfig/node24": "24.0.3",
     "@types/node": "^22.9.0",
+    "typedoc": "^0.28.14",
     "typescript": "^5.9.3",
     "vitest": "^1.6.0"
   }
