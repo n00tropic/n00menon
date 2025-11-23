@@ -12,6 +12,7 @@
     }
   },
   "scripts": {
+    "preinstall": "node ../scripts/guard-subrepo-pnpm-install.mjs",
     "build": "tsc -p tsconfig.json",
     "test": "vitest run",
     "lint": "echo 'No lint configured'",
