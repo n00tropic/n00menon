@@ -1,0 +1,32 @@
+{
+  "name": "n00menon",
+  "version": "0.1.0",
+  "description": "Minimal Node/TS demo service with ping/greet APIs and Vitest coverage.",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "lint": "echo 'No lint configured'"
+  },
+  "engines": {
+    "node": ">=24.11.0"
+  },
+  "packageManager": "pnpm@10.23.0",
+  "keywords": ["demo", "ping", "vitest", "typescript"],
+  "license": "MIT",
+  "author": "n00tropic",
+  "devDependencies": {
+    "@tsconfig/node24": "24.0.3",
+    "@types/node": "^22.9.0",
+    "typescript": "^5.9.3",
+    "vitest": "^1.6.0"
+  }
+}
