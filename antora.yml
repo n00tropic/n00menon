@@ -3,4 +3,4 @@ title: n00menon
 version: 1.0
 nav:
   - modules/ROOT/nav.adoc
-start_page: modules/ROOT/pages/index.adoc
+start_page: ROOT:index.adoc
