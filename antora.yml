@@ -1,0 +1,6 @@
+name: n00menon
+title: n00menon
+version: 1.0
+nav:
+  - modules/ROOT/nav.adoc
+start_page: modules/ROOT/pages/index.adoc

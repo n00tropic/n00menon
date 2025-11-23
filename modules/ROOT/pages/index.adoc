@@ -1,0 +1,24 @@
+= n00menon Docs
+:page-nav_order: 1
+
+A tiny Node/TypeScript demo service exposing two functions:
+
+* `ping()` returns `"pong"` — useful as a health probe.
+* `greet(name)` returns `"Hello, <name>!"` — simple greeting helper.
+
+== Getting Started
+
+[source,bash]
+----
+pnpm install
+pnpm test
+pnpm build
+node dist/index.js
+----
+
+== API Reference
+- Handwritten Markdown: link:../../../docs/index.md[docs/index.md]
+- Generated Typedoc (HTML): run `pnpm run docs:build` then open `docs/api/index.html`.
+
+== Source
+- link:../../../../src/index.ts[src/index.ts]
