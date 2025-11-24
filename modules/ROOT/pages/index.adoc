@@ -34,7 +34,7 @@ node dist/index.js
 * Edit +docs/index.md+ as the single source of truth for n00menon docs.
 * Run +pnpm -C n00menon run docs:sync+ to refresh +README.md+ and the Antora page.
 * Regenerate API HTML with +pnpm -C n00menon run docs:build+.
-* ci uses +pnpm -C n00menon run validate+ to guard drift and make sure the docs build stays green.
+* CI uses +pnpm -C n00menon run validate+ to guard drift and make sure the docs build stays green.
 
 == Contributing
 
