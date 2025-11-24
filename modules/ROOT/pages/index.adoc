@@ -32,9 +32,9 @@ node dist/index.js
 == Docs + automation
 
 * Edit +docs/index.md+ as the single source of truth for n00menon docs.
-* Run +pnpm -C n00menon run docs:sync+ to refresh +README.md+ and the Antora page.
-* Regenerate API HTML with +pnpm -C n00menon run docs:build+.
-* CI uses +pnpm -C n00menon run validate+ to guard drift and make sure the docs build stays green.
+* Run +pnpm run docs:sync+ to refresh +README.md+ and the Antora page.
+* Regenerate API HTML with +pnpm run docs:build+.
+* CI uses +pnpm run validate+ to guard drift and make sure the docs build stays green.
 
 == Contributing
 

@@ -1,6 +1,4 @@
-<!-- Synced from docs/index.md via scripts/sync-n00menon-docs.mjs. Edit the source and rerun docs:sync. -->
-
-# n00menon
+# n00menon Docs
 
 Tiny Node/TypeScript demo service that exposes two trivial APIs and acts as a canary for the wider workspace tooling.
 

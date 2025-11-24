@@ -1,0 +1,40 @@
+name: Docs • ingest mkdocs artifact
+
+on:
+  repository_dispatch:
+    types: [mkdocs_site_updated]
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Download artifact from source workflow
+        run: |
+          set -euo pipefail
+          SRC_REPO="${{ github.event.client_payload.source_repo }}"
+          RUN_ID="${{ github.event.client_payload.workflow_run_id }}"
+          ARTIFACT="${{ github.event.client_payload.artifact }}"
+          echo "Source repo: ${SRC_REPO}"
+          echo "Workflow run: ${RUN_ID}"
+          echo "Artifact: ${ARTIFACT}"
+          mkdir -p docs/mkdocs-site
+          gh run download "$RUN_ID" --repo "$SRC_REPO" --name "$ARTIFACT" --dir docs/mkdocs-site
+
+      - name: List downloaded files
+        run: ls -la docs/mkdocs-site | sed 's/^/mkdocs-site\//'
+
+      - name: Upload mirrored artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: mkdocs-site-${{ github.event.client_payload.source_repo }}-${{ github.event.client_payload.workflow_run_id }}
+          path: docs/mkdocs-site
+          if-no-files-found: error
