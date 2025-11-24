@@ -9,12 +9,8 @@ A demo Node.js service
 - ✅ Vitest for testing with coverage
 - ✅ ESLint + Prettier for code quality
 - ✅ GitHub Actions CI/CD
-  
 - ✅ Security scanning (CodeQL, pnpm audit, secret scanning)
-  
-  
 - ✅ SBOM generation and signing
-  
 
 ## Getting Started
 
@@ -102,13 +98,10 @@ This project uses GitHub Actions for continuous integration:
   - Unit tests with coverage
   - Multi-version Node.js testing (18, 20, 21)
 
-
-
 - **Security Pipeline**: Runs weekly and on changes
   - Dependency vulnerability scanning (pnpm audit)
   - Static analysis (CodeQL)
   - Secret scanning (TruffleHog)
-    
 
 ## License
 
