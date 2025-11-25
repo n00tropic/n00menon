@@ -3,3 +3,4 @@
 * xref:manifesto.adoc[Evergreen Engineering Manifesto]
 * xref:agent-ops.adoc[Agent Operations Guide]
 * xref:agents.adoc[Agent Registry]
+* xref:mcp-capabilities.adoc[MCP Capabilities]
