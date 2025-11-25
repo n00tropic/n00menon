@@ -27,6 +27,6 @@ Common pitfalls
 
 MCP capabilities to reuse
 
-* `planner.refreshPlans` — regenerate plans from briefs.
-* `docs.captureTypesenseSummary` — parse the latest Typesense log into JSON for dashboards.
-* `workspace-health` actions — prefer these over bespoke cleanup scripts.
+* `planner.refreshPlans`—regenerate plans from briefs.
+* `docs.captureTypesenseSummary`—parse the latest Typesense log into JSON for dashboards.
+* `workspace-health` actions—prefer these over bespoke cleanup scripts.

@@ -23,11 +23,11 @@ node dist/index.js
 
 == Repository map
 
-* +src/index.ts+ — runtime exports and the tiny CLI entrypoint.
-* +tests/+ — Vitest smoke coverage; keep the threshold at ≥80%.
-* +docs/+ — canonical Markdown docs plus generated Typedoc HTML under +docs/api/+.
-* +modules/ROOT/pages/index.adoc+ — Antora page (synced automatically; do not hand-edit).
-* +package.json+ — scripts for build, tests, docs sync, and validation.
+* +src/index.ts+—runtime exports and the tiny CLI entrypoint.
+* +tests/+—Vitest smoke coverage; keep the threshold at ≥80%.
+* +docs/+—canonical Markdown docs plus generated Typedoc HTML under +docs/api/+.
+* +modules/ROOT/pages/index.adoc+—Antora page (synced automatically; do not hand-edit).
+* +package.json+—scripts for build, tests, docs sync, and validation.
 
 == Docs + automation
 
