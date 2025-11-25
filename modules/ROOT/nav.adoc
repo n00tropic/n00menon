@@ -1,1 +1,2 @@
 * xref:index.adoc[Home]
+* xref:branching.adoc[Branch & Submodule Policy]
