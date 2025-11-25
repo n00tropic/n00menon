@@ -1,2 +1,4 @@
 * xref:index.adoc[Home]
 * xref:branching.adoc[Branch & Submodule Policy]
+* xref:manifesto.adoc[Evergreen Engineering Manifesto]
+* xref:agent-ops.adoc[Agent Operations Guide]
