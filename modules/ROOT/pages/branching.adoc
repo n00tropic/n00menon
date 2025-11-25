@@ -5,7 +5,7 @@ This policy keeps the superrepo and all subrepos aligned, with minimal surprises
 
 == Branch model
 
-* `main` is protected; CI must be green (lint/test/docs) and Typesense freshness checks must pass before merge.
+* `main` is protected; ci must be green (lint/test/docs) and Typesense freshness checks must pass before merge.
 * Short-lived feature branches only; prefer `feat/*`, `fix/*`, `docs/*`.
 * Rebase locally; avoid merge commits. Force-push only to personal feature branches.
 
@@ -20,7 +20,7 @@ This policy keeps the superrepo and all subrepos aligned, with minimal surprises
 * Build artefacts: `.next/`, `dist/`, `storybook-static/`, `docs/_build/`, `artifacts/`
 * Local envs and caches: `.venv/`, `venv/`, `.ruff_cache/`, `.pytest_cache/`, `.pnpm-store/`, `node_modules/`
 
-== CI + Typesense
+== Ci + Typesense
 
 * Prefer `astral-sh/setup-uv@v2` + `uv sync` for Python jobs; cached and deterministic.
 * Docs/search changes must refresh Typesense: run `docs/search/scripts/capture-latest-summary.sh` or trigger `search-reindex.yml`. Keep the latest log + `.log.json` under `docs/search/logs/`.
