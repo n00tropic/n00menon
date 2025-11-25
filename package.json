@@ -19,6 +19,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "typecheck": "tsc --noEmit",
+    "docs:fix-style": "node ../scripts/fix-docs-style.mjs --pattern \"n00menon/modules/**/*.adoc\"",
     "validate": "pnpm run typecheck && pnpm run lint && pnpm run format:check && pnpm test && pnpm run docs:sync:check"
   },
   "keywords": [
