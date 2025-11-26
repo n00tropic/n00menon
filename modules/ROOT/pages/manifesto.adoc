@@ -32,5 +32,5 @@ Agent quickstart (policy-aware)
 See also
 
 * xref:branching.adoc[Branch management]
-* xref:submodules.adoc[Submodule playbook]
-* xref:search/typesense.adoc[Typesense runbook]
+* xref:n00tropic-cerebrum:submodules.adoc[Submodule playbook]
+* xref:n00tropic-cerebrum:search/typesense.adoc[Typesense runbook]
