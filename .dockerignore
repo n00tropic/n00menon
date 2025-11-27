@@ -1,0 +1,80 @@
+# =============================================================================
+# n00menon - Docker Ignore File
+# =============================================================================
+# Exclude files and directories from the Docker build context to reduce
+# build time and image size.
+# =============================================================================
+
+# Git
+.git
+.gitignore
+
+# Dependencies (will be installed in container)
+node_modules
+
+# Build artifacts (will be built in container)
+dist
+
+# Documentation (not needed in runtime image)
+docs
+modules
+*.md
+*.adoc
+
+# IDE and editor files
+.idea
+.vscode
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Test files (not needed in production)
+tests
+*.test.ts
+*.spec.ts
+vitest.config.ts
+vitest.config.ts.jinja
+coverage
+
+# Configuration files not needed in container
+.editorconfig
+.eslintignore
+.eslintrc.cjs
+eslint.config.js
+.prettierignore
+.prettierrc
+.pre-commit-config.yaml
+.trunk
+antora.yml
+renovate.json
+# Note: tsconfig.json is needed for build stage
+
+# Environment files (use Docker environment variables instead)
+.env
+.env.*
+!.env.example
+
+# Scripts (not needed in production)
+scripts
+
+# Docker files (prevent recursive copy)
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# GitHub files
+.github
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Temporary files
+tmp
+temp
+*.tmp
+
+# Lock files kept for reproducible builds
+# pnpm-lock.yaml - KEEP

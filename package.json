@@ -20,7 +20,13 @@
     "format:check": "prettier --check .",
     "typecheck": "tsc --noEmit",
     "docs:fix-style": "node ../scripts/fix-docs-style.mjs --pattern \"n00menon/modules/**/*.adoc\"",
-    "validate": "pnpm run typecheck && pnpm run lint && pnpm run format:check && pnpm test && pnpm run docs:sync:check"
+    "validate": "pnpm run typecheck && pnpm run lint && pnpm run format:check && pnpm test && pnpm run docs:sync:check",
+    "docker:build": "docker build -t n00menon .",
+    "docker:run": "docker run -p 3000:3000 n00menon",
+    "docker:up": "docker-compose up --build",
+    "docker:down": "docker-compose down",
+    "docker:dev": "docker-compose --profile dev up --build",
+    "docker:docs": "docker-compose --profile docs up"
   },
   "keywords": [
     "nodejs",
