@@ -34,7 +34,7 @@ Guardrails that keep every subproject in sync, with CI running in the repo that 
 * +scripts/workspace-qa.sh+ stitches the canonical meta-check together with an optional Trunk sweep; add +--auto-fix+ or +--fmt+ when you want fixes applied.
 * +.dev/automation/scripts/meta-check.sh+ (doctor-first) already performs: Trunk config sync, n00-frontiers export + ingest, schema validation in +n00-cortex+, +pip-audit+ in +n00-frontiers+, n00-school training validation, n00t lint/test/build hooks when present, cross-repo consistency, Renovate dashboard generation, and submodule hygiene reporting.
 * +.dev/automation/scripts/run-trunk-subrepos.sh+ enforces the shared +.trunk/trunk.yaml+ across subrepos, supports formatting, and records envelopes for observability.
-* +scripts/trunk-upgrade-workspace.sh --check+ upgrades Trunk plugins and re-syncs definitions; run it when bumping lint/format tooling or after updating +.trunk/+ in Cortex.
+* +scripts/trunk-upgrade-workspace.sh --check+ upgrades Trunk plugins and re-syncs definitions; run it when bumping lint/format tooling or after updating +.trunk/+ in Cortex (agents can call it through the +workspace.trunkUpgradeWorkspace+ capability).
 * +scripts/sync-ecosystem.sh+ fans out frontiers/fusion exports, Cortex ingestion, and schema/tests so downstream catalogs stay aligned after template or schema changes.
 
 == Dependency hygiene & updates
