@@ -1,26 +1,36 @@
 {
-  "name": "demo-node-service",
+  "name": "n00menon",
   "version": "0.1.0",
-  "description": "A demo Node.js service",
+  "description": "Minimal Node/TS demo service with ping/greet APIs and Vitest coverage.",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
   "scripts": {
-    "docs:build": "typedoc --entryPoints src/index.ts --out docs/api",
-    "docs:sync": "node ../scripts/sync-n00menon-docs.mjs --write",
-    "docs:sync:check": "node ../scripts/sync-n00menon-docs.mjs --check",
+    "preinstall": "node ../scripts/guard-subrepo-pnpm-install.mjs",
     "dev": "tsx watch src/index.ts",
     "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js",
     "test": "vitest run --coverage",
     "test:watch": "vitest",
-    "start": "node dist/index.js",
     "lint": "ESLINT_USE_FLAT_CONFIG=false eslint .",
     "lint:fix": "ESLINT_USE_FLAT_CONFIG=false eslint . --fix",
+    "lint:spell": "pnpm exec cspell --config ../cspell.json 'docs/**/*' 'modules/ROOT/pages/**/*.adoc' || true",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "typecheck": "tsc --noEmit",
-    "docs:fix-style": "node ../scripts/fix-docs-style.mjs --pattern \"n00menon/modules/**/*.adoc\"",
-    "validate": "pnpm run typecheck && pnpm run lint && pnpm run format:check && pnpm test && pnpm run docs:sync:check",
+    "docs:build": "typedoc --options typedoc.json",
+    "docs:clean": "rm -rf docs/api",
+    "docs": "pnpm run docs:build",
+    "docs:sync": "node ../scripts/sync-n00menon-docs.mjs --write",
+    "docs:sync:check": "node ../scripts/sync-n00menon-docs.mjs --check",
+    "docs:fix-style": "node ../scripts/fix-docs-style.mjs --pattern 'n00menon/modules/**/*.adoc'",
+    "validate": "pnpm run typecheck && pnpm run lint && pnpm run format:check && pnpm test && pnpm run docs:sync:check && pnpm run docs:build",
     "docker:build": "docker build -t n00menon .",
     "docker:run": "docker run -p 3000:3000 n00menon",
     "docker:up": "docker-compose up --build",
@@ -28,13 +38,20 @@
     "docker:dev": "docker-compose --profile dev up --build",
     "docker:docs": "docker-compose --profile docs up"
   },
+  "engines": {
+    "node": ">=24.11.0"
+  },
+  "packageManager": "pnpm@10.23.0",
   "keywords": [
+    "demo",
+    "ping",
+    "service",
     "nodejs",
     "typescript",
-    "service"
+    "vitest"
   ],
-  "author": "Test Author <test@example.com>",
-  "license": "Apache-2.0",
+  "license": "MIT",
+  "author": "n00tropic",
   "devDependencies": {
     "@tsconfig/node24": "^24.0.3",
     "@types/node": "^24.10.1",
@@ -48,8 +65,5 @@
     "typedoc": "^0.28.14",
     "typescript": "^5.9.3",
     "vitest": "^4.0.13"
-  },
-  "engines": {
-    "node": ">=24.11.0"
   }
 }

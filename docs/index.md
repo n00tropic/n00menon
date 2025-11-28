@@ -128,9 +128,9 @@ docker-compose logs -f
 ## Docs + automation
 
 - Edit `docs/index.md` as the single source of truth for n00menon docs.
-- Run `pnpm run docs:sync` to refresh `README.md` and the Antora page.
-- Regenerate API HTML with `pnpm run docs:build`.
-- CI uses `pnpm run validate` to guard drift and make sure the docs build stays green.
+- Run `pnpm run docs:sync` (or `pnpm -C n00menon run docs:sync` from the workspace root) to refresh `README.md` and the Antora page.
+- Regenerate API HTML with `pnpm run docs:build` (or `pnpm -C n00menon run docs:build`).
+- CI uses `pnpm run validate` (or `pnpm -C n00menon run validate`) to guard drift and keep the docs build green.
 
 ## Contributing
 
