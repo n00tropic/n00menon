@@ -33,11 +33,8 @@ RUN pnpm install --frozen-lockfile
 COPY tsconfig.json ./
 COPY src/ ./src/
 
-# Build TypeScript
-RUN pnpm run build
-
-# Prune dev dependencies for production
-RUN pnpm prune --prod
+# Build TypeScript and prune dev dependencies for production in one layer
+RUN pnpm run build && pnpm prune --prod
 
 # -----------------------------------------------------------------------------
 # Stage 2: Production
