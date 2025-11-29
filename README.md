@@ -133,7 +133,6 @@ docker-compose logs -f
 - Run `pnpm run docs:sync` (or `pnpm -C n00menon run docs:sync` from the workspace root) to refresh `README.md` and the Antora page.
 - Regenerate API HTML with `pnpm run docs:build` (or `pnpm -C n00menon run docs:build`).
 - CI uses `pnpm run validate` (or `pnpm -C n00menon run validate`) to guard drift and keep the docs build green.
-- Before pushing: run `pnpm run docs:sync:check` and `pnpm run docs:build` so GitHub Pages picks up the latest Antora + TypeDoc outputs. If Trunk git hooks are enabled, point the cache to a writable path, e.g. `TRUNK_CACHE_DIR=$PWD/.cache/trunk`.
 
 ## Contributing
 

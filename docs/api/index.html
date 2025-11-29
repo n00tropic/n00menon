@@ -93,7 +93,6 @@
 <li>Run <code>pnpm run docs:sync</code> (or <code>pnpm -C n00menon run docs:sync</code> from the workspace root) to refresh <code>README.md</code> and the Antora page.</li>
 <li>Regenerate API HTML with <code>pnpm run docs:build</code> (or <code>pnpm -C n00menon run docs:build</code>).</li>
 <li>CI uses <code>pnpm run validate</code> (or <code>pnpm -C n00menon run validate</code>) to guard drift and keep the docs build green.</li>
-<li>Before pushing: run <code>pnpm run docs:sync:check</code> and <code>pnpm run docs:build</code> so GitHub Pages picks up the latest Antora + TypeDoc outputs. If Trunk git hooks are enabled, point the cache to a writable path, e.g. <code>TRUNK_CACHE_DIR=$PWD/.cache/trunk</code>.</li>
 </ul>
 <h2 id="contributing" class="tsd-anchor-link">Contributing<a href="#contributing" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><ul>
 <li>Keep exports in <code>src/index.ts</code> documented with TSDoc comments.</li>
