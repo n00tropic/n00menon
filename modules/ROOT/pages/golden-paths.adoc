@@ -1,0 +1,16 @@
+= Golden Paths (Workspace & Subrepos)
+
+This mirrors the workspace golden paths for SSoT visibility. See also: `../docs/modules/ROOT/pages/golden-paths.adoc` in the superrepo.
+
+* Workspace: bootstrap → policy-sync → graph export → tokens orchestrate/validate.
+* n00-frontiers: `./.dev/validate-templates.sh --all`, keep `catalog.json` current.
+* n00-cortex: `pnpm run validate`, `pnpm run ingest:frontiers` on template changes.
+* n00tropic: `pnpm run validate-docs`, keep generators in sync.
+* n00t: `pnpm install`, `pnpm test`, update capabilities with new scripts.
+* n00plicate: `pnpm tokens:orchestrate` (tokens.json symlink), `pnpm tokens:validate`, lint/tests.
+* n00clear-fusion: venv + pipelines; export RAG pack via `fusion-rag-pack.sh`.
+* n00-horizons: preflight jobs, export planner telemetry via `planner-eval-sync.sh`.
+* n00-school: `scripts/run-training.sh default --check` then dataset runs.
+* n00menon: `pnpm run validate && pnpm run docs:build`; sync shared docs via `scripts/sync-n00menon-docs.mjs --write` from workspace.
+
+Node pinning: nvm auto-sourced via `scripts/ensure-nvm-node.sh` in workspace scripts; ensure nvm is installed on runners.
