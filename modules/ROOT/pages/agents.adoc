@@ -1,0 +1,16 @@
+:page-tags: diataxis:reference, domain:platform, audience:contrib, stability:beta
+:reviewed: 2025-11-25
+
+= Agent registry
+
+Primary source of agent definitions lives in `n00man/docs/agent-registry.adoc`.
+
+xref:++../n00man/docs/agent-registry.adoc++[View registry]
+
+Current agents
+
+[cols="1,2",options="header"]
+|===
+| Agent | Role
+| n00veau | Art Director (brand/creative)
+|===

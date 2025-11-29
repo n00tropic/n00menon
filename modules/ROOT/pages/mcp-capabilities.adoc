@@ -1,0 +1,15 @@
+:page-tags: diataxis:reference, domain:platform, audience:agent, stability:beta
+:reviewed: 2025-11-25
+
+= MCP capabilities (docs & planning)
+
+Use these MCP endpoints to keep agents aligned with tagging and search hygiene:
+
+* `docs.captureTypesenseSummary` — reads the latest `docs/search/logs/typesense-reindex-*.log.json` summary.
+* `docs.tagEnforce` — runs the tag enforcement/propagation routine across the workspace (mirrors `tag-propagate.sh`).
+* `planner.refreshPlans` — regenerates plans from briefs with updated doc/search context.
+
+Operational notes:
+
+* Prefer these capabilities instead of ad hoc shell when running from control tower.
+* Capabilities are exposed in the control tower MCP server; ensure it runs with access to the workspace root.

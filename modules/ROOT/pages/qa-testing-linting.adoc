@@ -1,0 +1,55 @@
+:page-tags: diataxis:guide, domain:platform, audience:engineer, stability:beta
+:reviewed: 2025-11-26
+
+= QA, Testing, and Linting
+
+Guardrails that keep every subproject in sync, with CI running in the repo that owns the code and the superproject only coordinating sweeping runs.
+
+== Run loops you should know
+|===
+| Flow | Command | Purpose
+
+| Workspace sweep (root)
+| +bash scripts/workspace-qa.sh --full+
+| Doctor + auto-fix via meta-check, then Trunk sweep with formatting; use for sweeping or pre-release runs.
+
+| Workspace quick (root)
+| +bash scripts/workspace-qa.sh+
+| Doctor-first meta-check only; safe default for daily use.
+
+| Subproject (Node/TS)
+| +pnpm run validate+ (e.g., `n00menon`) or +pnpm lint && pnpm test && pnpm typecheck && pnpm format:check+
+| Run from the repo root; CI in each subproject should call this exact target.
+
+| Subproject (Python agents from n00-frontiers)
+| +uv sync --extra dev && uv run ruff format --check . && uv run ruff check . && uv run pytest --maxfail=1 --disable-warnings && uv run mypy+
+| Baseline we are rolling into the agent-service template; run from repo root. Set +TRUNK_SKIP=1+ locally if you have no Trunk binary.
+
+| Trunk only
+| +.dev/automation/scripts/run-trunk-subrepos.sh --fmt+
+| Lint/format across every repo that contains +.trunk/trunk.yaml+; respects +TRUNK_BIN+ and caches.
+|===
+
+== What runs under the hood
+* +scripts/workspace-qa.sh+ stitches the canonical meta-check together with an optional Trunk sweep; add +--auto-fix+ or +--fmt+ when you want fixes applied.
+* +.dev/automation/scripts/meta-check.sh+ (doctor-first) already performs: Trunk config sync, n00-frontiers export + ingest, schema validation in +n00-cortex+, +pip-audit+ in +n00-frontiers+, n00-school training validation, n00t lint/test/build hooks when present, cross-repo consistency, Renovate dashboard generation, and submodule hygiene reporting.
+* +.dev/automation/scripts/run-trunk-subrepos.sh+ enforces the shared +.trunk/trunk.yaml+ across subrepos, supports formatting, and records envelopes for observability.
+* +scripts/trunk-upgrade-workspace.sh --check+ upgrades Trunk plugins and re-syncs definitions; run it when bumping lint/format tooling or after updating +.trunk/+ in Cortex (agents can call it through the +workspace.trunkUpgradeWorkspace+ capability).
+* +scripts/sync-ecosystem.sh+ fans out frontiers/fusion exports, Cortex ingestion, and schema/tests so downstream catalogs stay aligned after template or schema changes.
+
+== Dependency hygiene & updates
+* Renovate extends +renovate-presets/workspace.json+; cross-repo drift surfaces in +.dev/automation/artifacts/dependencies/renovate-dashboard.json+ produced by meta-check.
+* For ad-hoc audits run +node scripts/check-toolchain-pins.mjs+ (Node) and +PIP_AUDIT_VENV_KEEP=true pip-audit+ inside Python repos; meta-check already executes +pip-audit+ in +n00-frontiers+.
+* On ephemeral runners set +TRUNK_INSTALL=1 .dev/automation/scripts/trunk-upgrade.sh --repo <name>+ so Trunk versions stay aligned with the cached payload.
+
+== CI placement
+* Subproject pipelines run inside each repo (e.g., +pnpm run validate+ in +n00menon+, +uv run pytest+ for n00-frontiers agents) and publish results from that working tree.
+* Use the superproject runner for sweeping upgrades (Trunk, dependency dashboards, schema regenerations) via +pnpm run qa:workspace:full+.
+* Keep PRs lean: commit inside the subrepo first, then update the superproject submodule pointer; CI should mirror that flow to keep blame accurate.
+
+== n00-frontiers upgrade plan (tests/lint ready-made)
+* Bake a +qa+ extras group into the agent-service cookiecutter (+uv sync --extra dev+) with +ruff+, +pytest+, +coverage+, and +mypy+.
+* Add default scripts to the template: +uv run ruff check .+, +uv run ruff format --check .+, +uv run pytest --maxfail=1 --disable-warnings+, +uv run mypy+, plus +trunk check --ci+ gated by +TRUNK_SKIP+.
+* Provide a starter +tests/test_health.py+ and +tests/test_capabilities.py+ to guard the executor plumbing and MCP surface.
+* Ship +.trunk/trunk.yaml+ with Python linters enabled so new services inherit the org rules immediately.
+* Once the template lands, wire a +validate+ task in new agent repos (calls the four commands above) so CI and meta-check pick them up automatically.
