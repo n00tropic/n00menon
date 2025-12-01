@@ -1,16 +1,42 @@
 # Golden Path: n00menon (Docs SSoT)
 
-Prereqs
-- `source ../scripts/ensure-nvm-node.sh`
-- `pnpm install`
+> **Quick Ref**: `AGENTS.md` is the primary agent-facing reference; this file summarises the happy-path workflow.
 
-Do
-- `pnpm run validate`
-- `pnpm run docs:build`
+## 1. Prerequisites
 
-Validate
-- Antora/TechDocs build passes; lint/tests (if enabled) clean
+```bash
+source ../scripts/ensure-nvm-node.sh
+pnpm install
+```
 
-Integrate
-- Run `../scripts/sync-n00menon-docs.mjs --write` from workspace root to pull shared docs in
-- Keep ADRs and golden paths mirrored from workspace `docs/modules/ROOT/`
+## 2. Develop
+
+- Edit source in `src/`.
+- Update docs in `docs/`.
+
+## 3. Validate
+
+```bash
+pnpm run validate
+pnpm test
+pnpm run docs:build
+```
+
+## 4. Integrate
+
+```bash
+# Sync docs from workspace
+../scripts/sync-n00menon-docs.mjs --write
+```
+
+## 5. Key Documents
+
+| Document         | Purpose                            |
+| ---------------- | ---------------------------------- |
+| `AGENTS.md`      | Agent-facing SSoT                  |
+| `CONTRIBUTING.md`| Contribution guidelines            |
+| `README.md`      | Project overview                   |
+
+---
+
+*Last updated: 2025-12-01*

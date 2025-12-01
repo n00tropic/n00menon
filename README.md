@@ -4,6 +4,8 @@
 
 Tiny Node/TypeScript demo service that exposes two trivial APIs and acts as a canary for the wider workspace tooling.
 
+> 🤖 **AI Agents**: Start with [`AGENTS.md`](./AGENTS.md) for agent-optimised build, test, and docs commands.
+
 ## Quick start
 
 ```bash

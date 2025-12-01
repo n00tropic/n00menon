@@ -1,5 +1,7 @@
 # Contribution Guide
 
+> **Agent-facing SSoT**: See `/AGENTS.md` for agent-optimised build, test, and style rules.
+
 This workspace stitches together multiple submodules (cortex, frontiers, horizons, school, menon, plicate, n00t, clear-fusion, n00tropic). To avoid pointer drift and surprise migrations, follow these rules for **every change**:
 
 ## Branch & pointer hygiene
