@@ -34,4 +34,5 @@
 ## Deployment
 
 GitHub Pages deploys automatically on push to `main`:
+
 - TypeDoc API docs → `https://<org>.github.io/n00menon/`.

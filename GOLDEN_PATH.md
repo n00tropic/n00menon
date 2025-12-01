@@ -31,12 +31,12 @@ pnpm run docs:build
 
 ## 5. Key Documents
 
-| Document         | Purpose                            |
-| ---------------- | ---------------------------------- |
-| `AGENTS.md`      | Agent-facing SSoT                  |
-| `CONTRIBUTING.md`| Contribution guidelines            |
-| `README.md`      | Project overview                   |
+| Document          | Purpose                 |
+| ----------------- | ----------------------- |
+| `AGENTS.md`       | Agent-facing SSoT       |
+| `CONTRIBUTING.md` | Contribution guidelines |
+| `README.md`       | Project overview        |
 
 ---
 
-*Last updated: 2025-12-01*
+_Last updated: 2025-12-01_

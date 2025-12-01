@@ -85,20 +85,21 @@ docker-compose up --build
 
 ## Key Files
 
-| Path                        | Purpose                          |
-| --------------------------- | -------------------------------- |
-| `src/index.ts`              | Runtime exports + CLI entrypoint |
-| `tests/`                    | Vitest smoke tests               |
-| `docs/`                     | Markdown docs + generated API    |
-| `modules/ROOT/pages/`       | Antora pages (synced)            |
-| `package.json`              | Scripts and dependencies         |
-| `Dockerfile`                | Container definition             |
+| Path                  | Purpose                          |
+| --------------------- | -------------------------------- |
+| `src/index.ts`        | Runtime exports + CLI entrypoint |
+| `tests/`              | Vitest smoke tests               |
+| `docs/`               | Markdown docs + generated API    |
+| `modules/ROOT/pages/` | Antora pages (synced)            |
+| `package.json`        | Scripts and dependencies         |
+| `Dockerfile`          | Container definition             |
 
 ## Deployment
 
 ### GitHub Pages
 
 Automatic on push to `main`:
+
 1. Build TypeScript
 2. Generate TypeDoc API docs
 3. Deploy to `https://<org>.github.io/n00menon/`
@@ -119,8 +120,8 @@ When in the superrepo context:
 
 ---
 
-*For ecosystem context, see the root `AGENTS.md` in n00tropic-cerebrum.*
+_For ecosystem context, see the root `AGENTS.md` in n00tropic-cerebrum._
 
 ---
 
-*Last updated: 2025-12-01*
+_Last updated: 2025-12-01_
