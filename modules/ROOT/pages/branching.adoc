@@ -1,0 +1,32 @@
+= Branch & Submodule Policy
+:page-role: guide
+
+This policy keeps the superrepo and all subrepos aligned, with minimal surprises for agents and humans.
+
+== Branch model
+
+* `main` is protected; ci must be green (lint/test/docs) and Typesense freshness checks must pass before merge.
+* Short-lived feature branches only; prefer `feat/*`, `fix/*`, `docs/*`.
+* Rebase locally; avoid merge commits. Force-push only to personal feature branches.
+
+== Submodule updates (golden path)
+
+1. Work inside the subrepo; commit and push there first.
+2. From the superrepo root: `git add <subrepo> && git commit -m "Update <subrepo> to <sha>"`
+3. Push the superrepo pointer.
+
+== What never to stage
+
+* Build artefacts: `.next/`, `dist/`, `storybook-static/`, `docs/_build/`, `artifacts/`
+* Local envs and caches: `.venv/`, `venv/`, `.ruff_cache/`, `.pytest_cache/`, `.pnpm-store/`, `node_modules/`
+
+== Ci + Typesense
+
+* Prefer `astral-sh/setup-uv@v2` + `uv sync` for Python jobs; cached and deterministic.
+* Docs/search changes must refresh Typesense: run `docs/search/scripts/capture-latest-summary.sh` or trigger `search-reindex.yml`. Keep the latest log + `.log.json` under `docs/search/logs/`.
+* Danger/ci fail the merge if the Typesense summary is stale or missing.
+
+== MCP & discoverability
+
+* Docs are indexed for MCP/Typesense. Keep nav entries up to date and avoid orphaned pages.
+* When adding new policies, mirror a short pointer in the superrepo docs to keep agents in sync.

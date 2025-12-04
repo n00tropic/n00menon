@@ -1,6 +1,6 @@
 name: n00menon
 title: n00menon
-version: 1.0
+version: main
+start_page: ROOT:index.adoc
 nav:
   - modules/ROOT/nav.adoc
-start_page: ROOT:index.adoc

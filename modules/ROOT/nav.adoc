@@ -1,1 +1,7 @@
 * xref:index.adoc[Overview]
+* xref:branching.adoc[Branch & Submodule Policy]
+* xref:manifesto.adoc[Evergreen Engineering Manifesto]
+* xref:agent-ops.adoc[Agent Operations Guide]
+* xref:qa-testing-linting.adoc[QA, Testing, and Linting]
+* xref:agents.adoc[Agent Registry]
+* xref:mcp-capabilities.adoc[MCP Capabilities]

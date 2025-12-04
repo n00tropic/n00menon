@@ -1,0 +1,111 @@
+# =============================================================================
+# n00menon - Docker Compose Configuration
+# =============================================================================
+# This file provides configurations for running n00menon in different modes.
+#
+# Usage:
+#   # Production mode
+#   docker-compose up
+#
+#   # Development mode with hot-reload
+#   docker-compose --profile dev up
+#
+#   # Build and run
+#   docker-compose up --build
+#
+#   # Run in background
+#   docker-compose up -d
+# =============================================================================
+
+services:
+  # ---------------------------------------------------------------------------
+  # Production Service
+  # ---------------------------------------------------------------------------
+  n00menon:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    image: n00menon:latest
+    container_name: n00menon
+    restart: unless-stopped
+    ports:
+      - ${PORT:-3000}:3000
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - console.log('healthy')
+      interval: 30s
+      timeout: 3s
+      start_period: 5s
+      retries: 3
+    # Resource limits for production
+    deploy:
+      resources:
+        limits:
+          cpus: 0.5
+          memory: 256M
+        reservations:
+          cpus: 0.1
+          memory: 64M
+
+  # ---------------------------------------------------------------------------
+  # Development Service (use with --profile dev)
+  # ---------------------------------------------------------------------------
+  n00menon-dev:
+    profiles:
+      - dev
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    image: n00menon:dev
+    container_name: n00menon-dev
+    ports:
+      - ${DEV_PORT:-3001}:3000
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+    volumes:
+      # Mount source code for hot-reload
+      - ./src:/app/src:ro
+      - ./tests:/app/tests:ro
+      - ./tsconfig.json:/app/tsconfig.json:ro
+    # Development doesn't need restart policy
+    restart: no
+
+  # ---------------------------------------------------------------------------
+  # Documentation Server (use with --profile docs)
+  # ---------------------------------------------------------------------------
+  n00menon-docs:
+    profiles:
+      - docs
+    image: nginx:alpine
+    container_name: n00menon-docs
+    ports:
+      - ${DOCS_PORT:-8080}:80
+    volumes:
+      - ./docs/api:/usr/share/nginx/html:ro
+    restart: unless-stopped
+    healthcheck:
+      test:
+        - CMD
+        - wget
+        - -q
+        - --spider
+        - http://localhost:80/
+      interval: 30s
+      timeout: 3s
+      retries: 3
+
+# =============================================================================
+# Networks (optional - for more complex setups)
+# =============================================================================
+networks:
+  default:
+    name: n00menon-network
