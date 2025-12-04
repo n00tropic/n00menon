@@ -120,8 +120,8 @@ When in the superrepo context:
 
 ---
 
-_For ecosystem context, see the root `AGENTS.md` in n00tropic-cerebrum._
+For ecosystem context, see the root `AGENTS.md` in n00tropic-cerebrum.
 
 ---
 
-_Last updated: 2025-12-01_
+Last updated: 2025-12-01

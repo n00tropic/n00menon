@@ -39,4 +39,4 @@ pnpm run docs:build
 
 ---
 
-_Last updated: 2025-12-01_
+Last updated: 2025-12-01
