@@ -44,7 +44,7 @@
     "node": ">=24.11.0",
     "pnpm": ">=10.23.0"
   },
-  "packageManager": "pnpm@10.23.0",
+  "packageManager": "pnpm@10.26.2",
   "keywords": [
     "demo",
     "ping",
