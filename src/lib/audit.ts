@@ -5,6 +5,7 @@ import { globby } from "globby";
 import Ajv from "ajv";
 import addFormats from "ajv-formats";
 import { ValidationResult, ValidationError } from "./types.js";
+import { validateTags } from "./tags.js";
 
 // Init AJV
 const ajv = new Ajv({ allErrors: true, strict: false });
@@ -100,6 +101,18 @@ export async function auditDocs(
                           ruleId: "frontmatter-schema"
                       });
                   });
+              }
+
+              // Tag Validation
+              if (Array.isArray(data.tags)) {
+                  const invalidTags = validateTags(data.tags, root);
+                  if (invalidTags.length > 0) {
+                      errors.push({
+                          message: `Invalid Tags: ${invalidTags.join(", ")}. Allowed tags are defined in project-tags.yaml`,
+                          severity: "error",
+                          ruleId: "tag-taxonomy"
+                      });
+                  }
               }
           }
            // AsciiDoc support TBD
