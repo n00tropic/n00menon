@@ -1,18 +1,50 @@
 import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
-import { z } from "zod";
 import { globby } from "globby";
+import Ajv from "ajv";
+import addFormats from "ajv-formats";
 import { ValidationResult, ValidationError } from "./types.js";
 
-// Schemas
-const FrontmatterSchema = z.object({
-  title: z.string({ required_error: "Title is required" }).min(1),
-  type: z.enum(["concept", "guide", "reference", "tutorial", "policy", "adr"]).optional(),
-  status: z.enum(["draft", "review", "stable", "deprecated"]).optional(),
-  owner: z.string().optional(),
-  tags: z.array(z.string()).optional(),
-}).passthrough();
+// Init AJV
+const ajv = new Ajv({ allErrors: true, strict: false });
+addFormats(ajv);
+
+let schemaValidator: any = null;
+
+function loadSchema(root: string) {
+    if (schemaValidator) return schemaValidator;
+
+    // Use environment variable or look for sibling directory
+    const schemaPath = process.env.SCHEMA_PATH || path.resolve(root, "../../platform/n00-cortex/schemas/document-metadata.schema.json");
+
+    // Fallback: Check if we are inside n00menon in the monorepo context
+    const possiblePaths = [
+        schemaPath,
+        path.resolve(root, "../n00-cortex/schemas/document-metadata.schema.json"), // sibling in platform/
+        path.resolve(process.cwd(), "../n00-cortex/schemas/document-metadata.schema.json")
+    ];
+
+    let finalPath = "";
+    for (const p of possiblePaths) {
+        if (fs.existsSync(p)) {
+            finalPath = p;
+            break;
+        }
+    }
+
+    if (!finalPath) {
+        throw new Error(`Could not find document-metadata.schema.json. Searched locations: ${possiblePaths.join(", ")}`);
+    }
+
+    try {
+        const schema = JSON.parse(fs.readFileSync(finalPath, "utf8"));
+        schemaValidator = ajv.compile(schema);
+        return schemaValidator;
+    } catch (e: any) {
+        throw new Error(`Failed to load or compile schema from ${finalPath}: ${e.message}`);
+    }
+}
 
 export async function auditDocs(
   root: string,
@@ -23,6 +55,24 @@ export async function auditDocs(
   // 1. Structural Checks
   const structuralResult = checkStructure(root);
   if (structuralResult) results.push(structuralResult);
+
+  // Load Schema
+  let validator: any;
+  try {
+      validator = loadSchema(root);
+  } catch (e: any) {
+      // If we can't load the schema, we can't validate metadata. return error result.
+      results.push({
+          file: "Configuration",
+          valid: false,
+          errors: [{
+              message: e.message,
+              severity: "error",
+              ruleId: "schema-load"
+          }]
+      });
+      return results;
+  }
 
   // 2. Content Checks (Frontmatter)
   const files = await globby(["**/*.md", "**/*.adoc"], {
@@ -37,27 +87,22 @@ export async function auditDocs(
       const errors: ValidationError[] = [];
 
       try {
-          // gray-matter supports YAML frontmatter in Markdown.
-          // For AsciiDoc, it's slightly different (attributes header),
-          // but we'll assume standard YAML block '---' for now or standard Adoc attributes if we parse manually.
-          // Gray-matter is primarily for YAML/JSON fenced blocks.
-
           if (file.endsWith(".md")) {
               const { data } = matter(content);
-              const parseResult = FrontmatterSchema.safeParse(data);
 
-              if (!parseResult.success) {
-                  parseResult.error.errors.forEach(e => {
+              const valid = validator(data);
+
+              if (!valid) {
+                  validator.errors?.forEach((e: any) => {
                       errors.push({
-                          message: `Frontmatter: ${e.path.join(".")} - ${e.message}`,
+                          message: `Frontmatter: ${e.instancePath} ${e.message}`,
                           severity: "error",
                           ruleId: "frontmatter-schema"
                       });
                   });
               }
           }
-           // AsciiDoc typically uses :attribute: value, which matter doesn't handle natively without config.
-           // Leaving AsciiDoc frontmatter check as a TODO or implementing basic attribute regex Check.
+           // AsciiDoc support TBD
 
       } catch (e: any) {
            errors.push({
