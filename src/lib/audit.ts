@@ -77,7 +77,7 @@ export async function auditDocs(
   // 2. Content Checks (Frontmatter)
   const files = await globby(["**/*.md", "**/*.adoc"], {
       cwd: root,
-      ignore: ["**/node_modules/**", "**/dist/**", "**/.*"],
+      ignore: ["**/node_modules/**", "**/dist/**", "**/.*", "**/README.md"],
       absolute: true
   });
 
