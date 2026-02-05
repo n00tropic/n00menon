@@ -76,7 +76,7 @@
 			"esbuild": "0.27.0",
 			"fast-json-patch": "3.1.1",
 			"tmp": "0.2.4",
-			"body-parser": "2.2.1"
+			"body-parser": "2.2.2"
 		}
 	}
 }
