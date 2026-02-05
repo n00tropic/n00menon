@@ -17,5 +17,6 @@ export default defineConfig({
         statements: 80,
       },
     },
+    cache: false,
   },
 });

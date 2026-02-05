@@ -5,7 +5,7 @@
 ## 1. Prerequisites
 
 ```bash
-source ../scripts/ensure-nvm-node.sh
+source ../../scripts/ensure-nvm-node.sh
 pnpm install
 ```
 
