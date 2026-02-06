@@ -1,0 +1,103 @@
+{
+  "version": "1.0.0",
+  "capabilities": [
+    {
+      "id": "n00menon.build",
+      "summary": "Build the n00menon application.",
+      "entrypoint": "../package.json",
+      "inputs": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      },
+      "outputs": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "additionalProperties": false
+      },
+      "metadata": {
+        "owner": "n00menon-ops",
+        "tags": [
+          "build",
+          "typescript"
+        ],
+        "docs": "README.md",
+        "category": "automation"
+      },
+      "guardrails": {
+        "max_runtime_seconds": 600,
+        "allowed_entrypoint_roots": [
+          "."
+        ],
+        "allowed_exit_codes": [
+          0
+        ],
+        "allow_network": true
+      },
+      "agent": {
+        "mcp": {
+          "enabled": true
+        }
+      }
+    },
+    {
+      "id": "n00menon.docsSync",
+      "summary": "Sync documentation.",
+      "entrypoint": "../package.json",
+      "inputs": {
+        "type": "object",
+        "properties": {
+          "check": {
+            "type": "boolean",
+            "description": "Run in check mode.",
+            "default": false
+          }
+        },
+        "additionalProperties": false
+      },
+      "outputs": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "additionalProperties": false
+      },
+      "metadata": {
+        "owner": "n00menon-ops",
+        "tags": [
+          "docs",
+          "sync"
+        ],
+        "docs": "README.md",
+        "category": "maintenance"
+      },
+      "guardrails": {
+        "max_runtime_seconds": 300,
+        "allowed_entrypoint_roots": [
+          "."
+        ],
+        "allowed_exit_codes": [
+          0
+        ],
+        "allow_network": true
+      },
+      "agent": {
+        "mcp": {
+          "enabled": true
+        }
+      }
+    }
+  ]
+}
