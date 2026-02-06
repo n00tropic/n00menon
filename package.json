@@ -1,92 +1,92 @@
 {
-	"name": "n00menon",
-	"version": "0.1.0",
-	"description": "Document Curation Hub with MCP and CLI interface",
-	"type": "module",
-	"bin": {
-		"n00menon": "./dist/cli/index.js"
-	},
-	"main": "dist/index.js",
-	"types": "dist/index.d.ts",
-	"exports": {
-		".": {
-			"import": "./dist/index.js",
-			"types": "./dist/index.d.ts"
-		},
-		"./cli": {
-			"import": "./dist/cli/index.js",
-			"types": "./dist/cli/index.d.ts"
-		}
-	},
-	"scripts": {
-		"preinstall": "node ../../scripts/guard-subrepo-pnpm-install.mjs",
-		"dev": "tsx watch src/index.ts",
-		"build": "tsc -p tsconfig.json && chmod +x dist/cli/index.js",
-		"start": "node dist/cli/index.js serve",
-		"test": "mkdir -p .tmp && TMPDIR=$PWD/.tmp vitest run --coverage",
-		"test:watch": "vitest",
-		"lint": "eslint .",
-		"lint:fix": "eslint . --fix",
-		"lint:spell": "pnpm exec cspell --config ../../cspell.json 'docs/**/*' 'modules/ROOT/pages/**/*.adoc' || true",
-		"format": "prettier --write .",
-		"format:check": "prettier --check .",
-		"typecheck": "tsc --noEmit",
-		"docs:build": "typedoc --options typedoc.json",
-		"docs:clean": "rm -rf docs/api",
-		"docs": "pnpm run docs:build",
-		"docs:sync": "node dist/cli/index.js sync",
-		"docs:sync:check": "node dist/cli/index.js sync --check",
-		"docs:fix-style": "node dist/cli/index.js fix-style --pattern 'n00menon/modules/**/*.adoc'",
-		"pages:build": "node scripts/build-pages.mjs",
-		"ci:pages": "pnpm lint && pnpm test && pnpm build && pnpm docs:build && pnpm pages:build",
-		"validate": "pnpm run typecheck && pnpm run lint && pnpm run format:check && pnpm test && pnpm run docs:sync:check && pnpm run docs:build",
-		"docker:build": "docker build -t n00menon .",
-		"docker:run": "docker run -p 3000:3000 n00menon",
-		"docker:up": "docker-compose up --build",
-		"docker:down": "docker-compose down",
-		"docker:dev": "docker-compose --profile dev up --build",
-		"docker:docs": "docker-compose --profile docs up"
-	},
-	"dependencies": {
-		"@modelcontextprotocol/sdk": "^1.0.1",
-		"@types/js-yaml": "^4.0.9",
-		"ajv": "^8.17.1",
-		"ajv-formats": "^3.0.1",
-		"chalk": "^5.3.0",
-		"commander": "^12.1.0",
-		"execa": "^9.5.1",
-		"globby": "^14.0.2",
-		"gray-matter": "^4.0.3",
-		"js-yaml": "^4.1.1",
-		"n00-cortex": "workspace:*",
-		"zod": "^3.23.8"
-	},
-	"engines": {
-		"node": ">=24.1.0",
-		"pnpm": ">=10.28.2"
-	},
-	"packageManager": "pnpm@10.28.2",
-	"keywords": [
-		"demo",
-		"ping",
-		"service",
-		"nodejs",
-		"typescript",
-		"vitest"
-	],
-	"license": "MIT",
-	"author": "n00tropic",
-	"devDependencies": {
-		"@tsconfig/node24": "^24.0.4",
-		"@types/node": "^25.2.1",
-		"@typescript-eslint/eslint-plugin": "^8.54.0",
-		"@typescript-eslint/parser": "^8.54.0",
-		"@vitest/coverage-v8": "^4.0.18",
-		"eslint": "^9.39.2",
-		"eslint-config-prettier": "^10.1.8",
-		"prettier": "^3.8.1",
-		"tsx": "^4.21.0",
-		"typedoc": "^0.28.16",
-		"typescript": "^5.9.3"
-	}
+  "name": "n00menon",
+  "version": "0.1.0",
+  "description": "Document Curation Hub with MCP and CLI interface",
+  "type": "module",
+  "bin": {
+    "n00menon": "./dist/cli/index.js"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./cli": {
+      "import": "./dist/cli/index.js",
+      "types": "./dist/cli/index.d.ts"
+    }
+  },
+  "scripts": {
+    "preinstall": "node ../../scripts/guard-subrepo-pnpm-install.mjs",
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc -p tsconfig.json && chmod +x dist/cli/index.js",
+    "start": "node dist/cli/index.js serve",
+    "test": "mkdir -p .tmp && TMPDIR=$PWD/.tmp vitest run --coverage",
+    "test:watch": "vitest",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "lint:spell": "pnpm exec cspell --config ../../cspell.json 'docs/**/*' 'modules/ROOT/pages/**/*.adoc' || true",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "tsc --noEmit",
+    "docs:build": "typedoc --options typedoc.json",
+    "docs:clean": "rm -rf docs/api",
+    "docs": "pnpm run docs:build",
+    "docs:sync": "node dist/cli/index.js sync",
+    "docs:sync:check": "node dist/cli/index.js sync --check",
+    "docs:fix-style": "node dist/cli/index.js fix-style --pattern 'n00menon/modules/**/*.adoc'",
+    "pages:build": "node scripts/build-pages.mjs",
+    "ci:pages": "pnpm lint && pnpm test && pnpm build && pnpm docs:build && pnpm pages:build",
+    "validate": "pnpm run typecheck && pnpm run lint && pnpm run format:check && pnpm test && pnpm run docs:sync:check && pnpm run docs:build",
+    "docker:build": "docker build -t n00menon .",
+    "docker:run": "docker run -p 3000:3000 n00menon",
+    "docker:up": "docker-compose up --build",
+    "docker:down": "docker-compose down",
+    "docker:dev": "docker-compose --profile dev up --build",
+    "docker:docs": "docker-compose --profile docs up"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.1",
+    "@types/js-yaml": "^4.0.9",
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "chalk": "^5.3.0",
+    "commander": "^12.1.0",
+    "execa": "^9.5.1",
+    "globby": "^14.0.2",
+    "gray-matter": "^4.0.3",
+    "js-yaml": "^4.1.1",
+    "n00-cortex": "workspace:*",
+    "zod": "^3.23.8"
+  },
+  "engines": {
+    "node": ">=24.1.0",
+    "pnpm": ">=10.28.2"
+  },
+  "packageManager": "pnpm@10.28.2",
+  "keywords": [
+    "demo",
+    "ping",
+    "service",
+    "nodejs",
+    "typescript",
+    "vitest"
+  ],
+  "license": "MIT",
+  "author": "n00tropic",
+  "devDependencies": {
+    "@tsconfig/node24": "^24.0.4",
+    "@types/node": "^25.2.1",
+    "@typescript-eslint/eslint-plugin": "^8.54.0",
+    "@typescript-eslint/parser": "^8.54.0",
+    "@vitest/coverage-v8": "^4.0.18",
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.8.1",
+    "tsx": "^4.21.0",
+    "typedoc": "^0.28.16",
+    "typescript": "^5.9.3"
+  }
 }

@@ -17,28 +17,19 @@
             "type": "string"
           }
         },
-        "required": [
-          "status"
-        ],
+        "required": ["status"],
         "additionalProperties": false
       },
       "metadata": {
         "owner": "n00menon-ops",
-        "tags": [
-          "build",
-          "typescript"
-        ],
+        "tags": ["build", "typescript"],
         "docs": "README.md",
         "category": "automation"
       },
       "guardrails": {
         "max_runtime_seconds": 600,
-        "allowed_entrypoint_roots": [
-          "."
-        ],
-        "allowed_exit_codes": [
-          0
-        ],
+        "allowed_entrypoint_roots": ["."],
+        "allowed_exit_codes": [0],
         "allow_network": true
       },
       "agent": {
@@ -69,28 +60,19 @@
             "type": "string"
           }
         },
-        "required": [
-          "status"
-        ],
+        "required": ["status"],
         "additionalProperties": false
       },
       "metadata": {
         "owner": "n00menon-ops",
-        "tags": [
-          "docs",
-          "sync"
-        ],
+        "tags": ["docs", "sync"],
         "docs": "README.md",
         "category": "maintenance"
       },
       "guardrails": {
         "max_runtime_seconds": 300,
-        "allowed_entrypoint_roots": [
-          "."
-        ],
-        "allowed_exit_codes": [
-          0
-        ],
+        "allowed_entrypoint_roots": ["."],
+        "allowed_exit_codes": [0],
         "allow_network": true
       },
       "agent": {

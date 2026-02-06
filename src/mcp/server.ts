@@ -33,10 +33,10 @@ const TOOLS: Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-         check: {
-             type: "boolean",
-             description: "If true, only check for drift without writing changes."
-         }
+        check: {
+          type: "boolean",
+          description: "If true, only check for drift without writing changes.",
+        },
       },
     },
   },
@@ -63,64 +63,70 @@ export async function startServer() {
     const { name, arguments: args } = request.params;
 
     if (name === "validate_docs") {
-       const parsedCheck = z.object({
-           files: z.array(z.string()).optional().default([]),
-       }).safeParse(args);
+      const parsedCheck = z
+        .object({
+          files: z.array(z.string()).optional().default([]),
+        })
+        .safeParse(args);
 
-       if(!parsedCheck.success) {
-           throw new Error(`Invalid arguments: ${parsedCheck.error.message}`);
-       }
+      if (!parsedCheck.success) {
+        throw new Error(`Invalid arguments: ${parsedCheck.error.message}`);
+      }
 
-       const results = await validateDocs(parsedCheck.data.files);
-       const hasError = results.some(r => !r.valid);
+      const results = await validateDocs(parsedCheck.data.files);
+      const hasError = results.some((r) => !r.valid);
 
-       return {
-           content: [
-               {
-                   type: "text",
-                   text: JSON.stringify(results, null, 2),
-               }
-           ],
-           isError: hasError
-       };
+      return {
+        content: [
+          {
+            type: "text",
+            text: JSON.stringify(results, null, 2),
+          },
+        ],
+        isError: hasError,
+      };
     }
 
     if (name === "sync_docs") {
-         const parsedArgs = z.object({
-             check: z.boolean().optional().default(false)
-         }).safeParse(args);
+      const parsedArgs = z
+        .object({
+          check: z.boolean().optional().default(false),
+        })
+        .safeParse(args);
 
-         if(!parsedArgs.success) {
-             throw new Error(`Invalid args: ${parsedArgs.error}`);
-         }
+      if (!parsedArgs.success) {
+        throw new Error(`Invalid args: ${parsedArgs.error}`);
+      }
 
-         const cwd = process.cwd();
-         // Assuming standard layout if running in n00menon repo,
-         // but we should probably make these configurable or detecting.
-         // For now, hardcoding to n00menon structure relative to CWD.
-         const paths = {
-             source: path.join(cwd, "docs", "index.md"),
-             readme: path.join(cwd, "README.md"),
-             antora: path.join(cwd, "modules", "ROOT", "pages", "index.adoc")
-         };
+      const cwd = process.cwd();
+      // Assuming standard layout if running in n00menon repo,
+      // but we should probably make these configurable or detecting.
+      // For now, hardcoding to n00menon structure relative to CWD.
+      const paths = {
+        source: path.join(cwd, "docs", "index.md"),
+        readme: path.join(cwd, "README.md"),
+        antora: path.join(cwd, "modules", "ROOT", "pages", "index.adoc"),
+      };
 
-         try {
-             const results = syncDocs(paths, { check: parsedArgs.data.check });
-             const drift = results.some(r => !r.synced);
+      try {
+        const results = syncDocs(paths, { check: parsedArgs.data.check });
+        const drift = results.some((r) => !r.synced);
 
-             return {
-                 content: [{
-                     type: "text",
-                     text: JSON.stringify(results, null, 2)
-                 }],
-                 isError: drift
-             };
-         } catch (e: any) {
-             return {
-                 content: [{ type: "text", text: `Sync failed: ${e.message}` }],
-                 isError: true
-             };
-         }
+        return {
+          content: [
+            {
+              type: "text",
+              text: JSON.stringify(results, null, 2),
+            },
+          ],
+          isError: drift,
+        };
+      } catch (e: any) {
+        return {
+          content: [{ type: "text", text: `Sync failed: ${e.message}` }],
+          isError: true,
+        };
+      }
     }
 
     throw new Error(`Unknown tool: ${name}`);
