@@ -49,21 +49,21 @@
     "docker:docs": "docker-compose --profile docs up"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.0.1",
+    "@modelcontextprotocol/sdk": "^1.26.0",
     "@types/js-yaml": "^4.0.9",
     "ajv": "^8.17.1",
     "ajv-formats": "^3.0.1",
-    "chalk": "^5.3.0",
-    "commander": "^12.1.0",
-    "execa": "^9.5.1",
-    "globby": "^14.0.2",
+    "chalk": "^5.6.2",
+    "commander": "^14.0.3",
+    "execa": "^9.6.1",
+    "globby": "^16.1.0",
     "gray-matter": "^4.0.3",
     "js-yaml": "^4.1.1",
     "n00-cortex": "workspace:*",
-    "zod": "^3.23.8"
+    "zod": "^4.3.6"
   },
   "engines": {
-    "node": ">=24.11.0",
+    "node": ">=25.6.0",
     "pnpm": ">=10.28.2"
   },
   "packageManager": "pnpm@10.28.2",
@@ -83,7 +83,7 @@
     "@typescript-eslint/eslint-plugin": "^8.54.0",
     "@typescript-eslint/parser": "^8.54.0",
     "@vitest/coverage-v8": "^4.0.18",
-    "eslint": "^9.39.2",
+    "eslint": "^10.0.0",
     "eslint-config-prettier": "^10.1.8",
     "prettier": "^3.8.1",
     "tsx": "^4.21.0",
