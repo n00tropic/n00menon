@@ -16,7 +16,7 @@
 # -----------------------------------------------------------------------------
 # Stage 1: Build
 # -----------------------------------------------------------------------------
-FROM node:24-alpine AS builder
+FROM node:25-alpine AS builder
 
 # Enable corepack for pnpm support
 RUN corepack enable && corepack prepare pnpm@latest --activate
@@ -39,7 +39,7 @@ RUN pnpm run build && pnpm prune --prod
 # -----------------------------------------------------------------------------
 # Stage 2: Production
 # -----------------------------------------------------------------------------
-FROM node:24-alpine AS production
+FROM node:25-alpine AS production
 
 # Security: Run as non-root user
 RUN addgroup -g 1001 -S nodejs && \
@@ -72,7 +72,7 @@ CMD ["node", "dist/index.js"]
 # -----------------------------------------------------------------------------
 # Stage 3: Development (optional)
 # -----------------------------------------------------------------------------
-FROM node:24-alpine AS development
+FROM node:25-alpine AS development
 
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
