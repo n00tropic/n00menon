@@ -136,4 +136,4 @@ docker-compose logs -f
 
 - Keep exports in `src/index.ts` documented with TSDoc comments.
 - Add tests in `tests/` for new behaviour; hold coverage at 80% or higher.
-- Use pnpm 10.23.0 and Node 24.11+; run `pnpm test` and `pnpm run validate` before raising a PR.
+- Use pnpm 10.28.2 and Node 24.11+; run `pnpm test` and `pnpm run validate` before raising a PR.

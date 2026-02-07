@@ -1,10 +1,8 @@
-<!-- Synced from docs/index.md via scripts/sync-n00menon-docs.mjs. Edit the source and rerun docs:sync. -->
+<!-- Synced from docs/index.md via n00menon sync. Edit the source and rerun n00menon sync. -->
 
 # n00menon
 
 Tiny Node/TypeScript demo service that exposes two trivial APIs and acts as a canary for the wider workspace tooling.
-
-> 🤖 **AI Agents**: Start with [`AGENTS.md`](./AGENTS.md) for agent-optimised build, test, and docs commands.
 
 ## Quick start
 
@@ -140,4 +138,4 @@ docker-compose logs -f
 
 - Keep exports in `src/index.ts` documented with TSDoc comments.
 - Add tests in `tests/` for new behaviour; hold coverage at 80% or higher.
-- Use pnpm 10.23.0 and Node 24.11+; run `pnpm test` and `pnpm run validate` before raising a PR.
+- Use pnpm 10.28.2 and Node 24.11+; run `pnpm test` and `pnpm run validate` before raising a PR.
